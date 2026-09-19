@@ -1,0 +1,16 @@
+village,district,rainfall_mm,river_level_m,elevation_m,flooded_before
+Rampur,Gorakhpur,220,8.5,45,1
+Sitapur,Gorakhpur,90,4.2,120,0
+Ganeshpur,Gorakhpur,310,9.8,30,1
+Devgarh,Basti,150,6.1,80,1
+Kishanpur,Basti,60,3.0,150,0
+Lalganj,Basti,280,9.1,35,1
+Bhavpur,Deoria,40,2.5,200,0
+Nandgaon,Deoria,190,7.0,60,1
+Shivpur,Deoria,340,10.2,25,1
+Rajnagar,Gorakhpur,100,4.5,110,0
+Chandpur,Basti,270,8.9,40,1
+Harigaon,Deoria,130,5.5,90,0
+Madhopur,Gorakhpur,200,7.8,55,1
+Ramnagar,Basti,80,3.8,130,0
+Ashokpur,Deoria,300,9.5,32,1

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ t.home_title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-top">
+            <h1>🌊 {{ t.home_title }}</h1>
+            <div class="lang-toggle">
+                <a href="/setlang/en">English</a><a href="/setlang/hi">हिंदी</a>
+            </div>
+        </div>
+        <p class="subtitle">{{ t.hero_subtitle }}</p>
+        <div class="hero-stats">
+            <div class="stat-card">
+                <div class="stat-num">{{ total_villages }}</div>
+                <div class="stat-label">🏘️ {{ t.villages_monitored }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">{{ high_count }}</div>
+                <div class="stat-label">⚠️ {{ t.high_risk_now }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">{{ posts_count }}</div>
+                <div class="stat-label">🤝 {{ t.community_posts }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <form action="/predict" method="POST">
+            <label>{{ t.select_village }}</label>
+            <input type="text" name="village" list="village-list" placeholder="Start typing a village name..." required>
+            <datalist id="village-list">
+                {% for v in villages %}
+                <option value="{{ v }}">
+                {% endfor %}
+            </datalist>
+            <button type="submit">{{ t.check_risk }}</button>
+        </form>
+        <a class="back-link" href="/board">🤝 {{ t.board_link }}</a>
+    </div>
+</body>
+</html>

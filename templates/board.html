@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ t.board_title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="topbar">
+        <h1>🤝 {{ t.board_title }}</h1>
+        <div class="lang-toggle"><a href="/setlang/en">English</a><a href="/setlang/hi">हिंदी</a></div>
+    </div>
+
+    <div class="container">
+        <h2>{{ t.post_title }}</h2>
+        <form action="/post" method="POST">
+            <label>{{ t.want_to }}</label>
+            <select name="type" required>
+                <option value="Need">🆘 {{ t.need_help }}</option>
+                <option value="Donate">🎁 {{ t.offer_donate }}</option>
+            </select>
+
+            <label>{{ t.village_form }}</label>
+            <select name="village" required>
+                {% for v in villages %}
+                <option value="{{ v }}">{{ v }}</option>
+                {% endfor %}
+            </select>
+
+            <label>{{ t.item_label }}</label>
+            <input type="text" name="item" required>
+
+            <label>{{ t.qty_label }}</label>
+            <input type="text" name="quantity" required>
+
+            <label>{{ t.contact_form }}</label>
+            <input type="text" name="contact" required>
+
+            <button type="submit">{{ t.post_btn }}</button>
+        </form>
+
+        <h2>{{ t.current_posts }}</h2>
+        {% for post in posts %}
+        <div class="post-item">
+            {% if post.type == "Need" %}
+            <span class="post-tag tag-need">🆘 {{ post.type }}</span>
+            {% else %}
+            <span class="post-tag tag-donate">🎁 {{ post.type }}</span>
+            {% endif %}
+            <p>{{ post.item }} ({{ post.quantity }}) — {{ post.village }}</p>
+            <p class="meta-line">📞 {{ t.contact_label }} {{ post.contact }}</p>
+        </div>
+        {% endfor %}
+
+        <a class="back-link" href="/">← {{ t.back_home }}</a>
+    </div>
+</body>
+</html>

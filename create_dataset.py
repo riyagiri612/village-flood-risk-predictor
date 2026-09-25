@@ -19,7 +19,6 @@ for state, villages in states_villages.items():
         rainfall = random.randint(30, 350)
         river_level = round(random.uniform(2.0, 10.5), 1)
         elevation = random.randint(20, 200)
-        # Simple rule to make the mock data realistic: high rainfall + high river + low elevation = more likely flooded
         flood_score = (rainfall / 350) + (river_level / 10.5) + (1 - elevation / 200)
         flooded = 1 if flood_score > 1.6 else 0
 

@@ -23,6 +23,11 @@
 
         <p class="meta-line">{{ t.prob_label }} {{ confidence }}%</p>
 
+        {% if live_weather %}
+        <h2>🌤️ {{ t.live_weather_title }} — {{ live_weather.city }}</h2>
+        <p class="meta-line">{{ live_weather.condition }} · {{ live_weather.temp }}°C · Humidity {{ live_weather.humidity }}% · Rain (last hr): {{ live_weather.rain_last_hour }}mm</p>
+        {% endif %}
+
         <h2>🏠 {{ t.shelter_title }}</h2>
         <p>{{ shelter.name }}</p>
         <p>{{ shelter.address }}</p>
@@ -34,6 +39,12 @@
             <li>{{ action }}</li>
             {% endfor %}
         </ul>
+
+        {% if sms_text %}
+        <h2>📩 {{ t.sms_title }}</h2>
+        <p class="meta-line">{{ t.sms_hint }}</p>
+        <textarea class="sms-box" rows="4" readonly onclick="this.select()">{{ sms_text }}</textarea>
+        {% endif %}
 
         <a class="back-link" href="/">← {{ t.try_another }}</a>
     </div>

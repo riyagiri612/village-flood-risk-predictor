@@ -2,10 +2,13 @@ from flask import Flask, render_template, request, redirect, session
 import pickle
 import pandas as pd
 from donations import init_donations_file, add_post, get_all_posts
+from safety import init_safety_file, mark_safe, get_safety_records, get_safety_counts
+from weather import get_live_weather
 
 app = Flask(__name__)
 app.secret_key = 'flood_app_secret_key'
 init_donations_file()
+init_safety_file()
 
 with open("flood_model.pkl", "rb") as f:
     model = pickle.load(f)
@@ -49,10 +52,11 @@ ACTIONS = {
 
 TEXT = {
     "en": {
-        "home_title": "Village Flood Risk Predictor",
+        "home_title": "GaonRakshak — Village Flood Risk Predictor",
         "hero_subtitle": "Village-level flood risk, shelter guidance & community support — not just district averages.",
         "villages_monitored": "Villages Monitored", "high_risk_now": "High Risk Now", "community_posts": "Community Posts",
         "select_village": "Type or select your village:", "check_risk": "Check Flood Risk", "board_link": "Go to Donation & Help Board",
+        "safety_link": "Community Safety Board", "alerts_link": "Active Flood Alerts",
         "result_title": "Prediction Result", "village_label": "Village:", "risk_label": "Risk Level:",
         "prob_label": "Flood Probability:", "shelter_title": "Nearest Shelter",
         "contact_label": "Emergency Contact:", "actions_title": "What You Should Do",
@@ -61,13 +65,20 @@ TEXT = {
         "need_help": "Request Help", "offer_donate": "Offer Donation", "village_form": "Village:",
         "item_label": "Item (e.g. food, blankets, medicines):", "qty_label": "Quantity (e.g. \"20 people\" or \"50 blankets\"):",
         "contact_form": "Contact Number:", "post_btn": "Post", "current_posts": "Current Posts",
-        "back_home": "Back to Home"
+        "back_home": "Back to Home", "sms_title": "SMS Alert (for non-smartphone users)",
+        "sms_hint": "Copy this message and forward it via SMS to villagers without internet access.",
+        "safety_title": "Community Safety Board", "mark_safe_title": "Mark Yourself Safe",
+        "your_name": "Your Name:", "mark_safe_btn": "I Am Safe",
+        "safety_records_title": "People Confirmed Safe", "no_safety_yet": "No one has marked safe yet.",
+        "alerts_title": "Active Flood Alerts", "alerts_subtitle": "Villages currently at High risk — ready-to-send SMS alerts below.",
+        "no_alerts": "No villages are currently at High risk.", "live_weather_title": "Live Weather"
     },
     "hi": {
-        "home_title": "गाँव बाढ़ जोखिम अनुमान",
+        "home_title": "GaonRakshak — गाँव बाढ़ जोखिम अनुमान",
         "hero_subtitle": "गाँव-स्तर पर बाढ़ का जोखिम, शेल्टर मार्गदर्शन और सामुदायिक सहायता — सिर्फ जिला औसत नहीं।",
         "villages_monitored": "निगरानी में गाँव", "high_risk_now": "अभी उच्च जोखिम", "community_posts": "सामुदायिक पोस्ट",
         "select_village": "अपना गाँव टाइप करें या चुनें:", "check_risk": "बाढ़ का जोखिम जांचें", "board_link": "दान और सहायता बोर्ड पर जाएँ",
+        "safety_link": "सामुदायिक सुरक्षा बोर्ड", "alerts_link": "सक्रिय बाढ़ चेतावनी",
         "result_title": "अनुमान परिणाम", "village_label": "गाँव:", "risk_label": "जोखिम स्तर:",
         "prob_label": "बाढ़ की संभावना:", "shelter_title": "नज़दीकी शेल्टर",
         "contact_label": "आपातकालीन संपर्क:", "actions_title": "आपको क्या करना चाहिए",
@@ -76,7 +87,13 @@ TEXT = {
         "need_help": "मदद माँगें", "offer_donate": "दान दें", "village_form": "गाँव:",
         "item_label": "वस्तु (जैसे खाना, कंबल, दवाइयाँ):", "qty_label": "मात्रा (जैसे \"20 लोग\" या \"50 कंबल\"):",
         "contact_form": "संपर्क नंबर:", "post_btn": "पोस्ट करें", "current_posts": "मौजूदा पोस्ट",
-        "back_home": "होम पर वापस जाएँ"
+        "back_home": "होम पर वापस जाएँ", "sms_title": "SMS चेतावनी (बिना स्मार्टफोन वालों के लिए)",
+        "sms_hint": "इस संदेश को कॉपी करें और बिना इंटरनेट वाले ग्रामीणों को SMS से भेजें।",
+        "safety_title": "सामुदायिक सुरक्षा बोर्ड", "mark_safe_title": "खुद को सुरक्षित चिह्नित करें",
+        "your_name": "आपका नाम:", "mark_safe_btn": "मैं सुरक्षित हूँ",
+        "safety_records_title": "सुरक्षित पुष्टि किए गए लोग", "no_safety_yet": "अभी तक किसी ने सुरक्षित नहीं बताया है।",
+        "alerts_title": "सक्रिय बाढ़ चेतावनी", "alerts_subtitle": "वर्तमान में उच्च जोखिम वाले गाँव — नीचे भेजने के लिए तैयार SMS चेतावनी।",
+        "no_alerts": "फिलहाल कोई गाँव उच्च जोखिम में नहीं है।", "live_weather_title": "लाइव मौसम"
     }
 }
 
@@ -91,6 +108,22 @@ def predict_risk(rainfall_mm, river_level_m, elevation_m):
         risk = "High"
     return risk, round(flood_probability * 100, 1)
 
+def get_all_village_risks():
+    results = []
+    for _, row in village_df.iterrows():
+        risk, confidence = predict_risk(row['rainfall_mm'], row['river_level_m'], row['elevation_m'])
+        results.append({"village": row['village'], "risk": risk, "confidence": confidence})
+    return results
+
+def generate_sms(village, shelter, lang):
+    if lang == 'hi':
+        return (f"🚨 बाढ़ चेतावनी: {village} में बाढ़ का उच्च खतरा है। "
+                f"तुरंत {shelter['name']} ({shelter['address']}) पर जाएँ। "
+                f"आपातकालीन नंबर: {shelter['contact']}. - GaonRakshak")
+    return (f"🚨 FLOOD ALERT: {village} is at HIGH risk of flooding. "
+            f"Evacuate immediately to {shelter['name']} ({shelter['address']}). "
+            f"Emergency contact: {shelter['contact']}. - GaonRakshak")
+
 @app.route('/setlang/<lang>')
 def setlang(lang):
     session['lang'] = lang
@@ -100,11 +133,8 @@ def setlang(lang):
 def home():
     lang = session.get('lang', 'en')
     villages = village_df['village'].tolist()
-    high_count = 0
-    for _, row in village_df.iterrows():
-        risk, _ = predict_risk(row['rainfall_mm'], row['river_level_m'], row['elevation_m'])
-        if risk == "High":
-            high_count += 1
+    all_risks = get_all_village_risks()
+    high_count = len([v for v in all_risks if v['risk'] == 'High'])
     posts_count = len(get_all_posts())
     return render_template('index.html', villages=villages, high_count=high_count,
                             total_villages=len(villages), posts_count=posts_count,
@@ -124,8 +154,11 @@ def risk_view(village):
     risk, confidence = predict_risk(row['rainfall_mm'], row['river_level_m'], row['elevation_m'])
     shelter = SHELTERS.get(village, DEFAULT_SHELTER)
     actions = ACTIONS[risk][lang]
+    sms_text = generate_sms(village, shelter, lang) if risk == "High" else None
+    live_weather = get_live_weather(row['state'])
     return render_template('result.html', risk=risk, confidence=confidence,
                             village=village, shelter=shelter, actions=actions,
+                            sms_text=sms_text, live_weather=live_weather,
                             t=TEXT[lang], lang=lang)
 
 @app.route('/board')
@@ -143,6 +176,36 @@ def post():
         contact=request.form['contact']
     )
     return redirect('/board')
+
+@app.route('/safety')
+def safety():
+    lang = session.get('lang', 'en')
+    villages = village_df['village'].tolist()
+    records = get_safety_records()
+    counts = get_safety_counts()
+    return render_template('safety.html', villages=villages, records=records,
+                            counts=counts, t=TEXT[lang], lang=lang)
+
+@app.route('/mark-safe', methods=['POST'])
+def mark_safe_route():
+    mark_safe(
+        village=request.form['village'],
+        name=request.form['name'],
+        contact=request.form['contact']
+    )
+    return redirect('/safety')
+
+@app.route('/alerts')
+def alerts():
+    lang = session.get('lang', 'en')
+    all_risks = get_all_village_risks()
+    high_risk_villages = [v for v in all_risks if v['risk'] == 'High']
+    alert_list = []
+    for v in high_risk_villages:
+        shelter = SHELTERS.get(v['village'], DEFAULT_SHELTER)
+        sms_text = generate_sms(v['village'], shelter, lang)
+        alert_list.append({"village": v['village'], "confidence": v['confidence'], "sms_text": sms_text})
+    return render_template('alerts.html', alerts=alert_list, t=TEXT[lang], lang=lang)
 
 if __name__ == '__main__':
     app.run(debug=True)

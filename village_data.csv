@@ -1,31 +1,253 @@
 village,state,rainfall_mm,river_level_m,elevation_m,flooded_before
 Rampur,Uttar Pradesh,87,2.2,90,0
 Sitapur,Uttar Pradesh,155,3.9,46,0
-Ganeshpur,Uttar Pradesh,309,2.7,128,0
-Devgarh,Uttar Pradesh,46,2.3,75,0
-Kishanpur,Uttar Pradesh,149,6.3,26,1
-Lalganj,Bihar,317,3.7,186,0
-Bhavpur,Bihar,309,5.6,134,1
-Nandgaon,Bihar,331,4.4,21,1
-Shivpur,Bihar,111,7.9,107,0
-Rajnagar,Bihar,172,3.3,106,0
-Chandpur,Assam,82,2.8,44,0
-Harigaon,Assam,213,9.2,174,1
-Madhopur,Assam,165,8.9,137,1
-Ramnagar,Assam,304,3.1,116,0
-Ashokpur,Assam,70,6.7,180,0
-Bardhaman,West Bengal,346,9.5,112,1
-Nadiapur,West Bengal,325,3.6,37,1
-Suri,West Bengal,53,7.6,94,0
-Bolpur,West Bengal,70,9.3,45,1
-Katwa,West Bengal,224,4.4,182,0
-Alappuzha Rural,Kerala,216,3.4,110,0
-Kuttanad,Kerala,137,7.7,199,0
-Chengannur,Kerala,66,7.2,63,0
-Pathanamthitta Rural,Kerala,303,8.2,61,1
-Cherthala,Kerala,266,5.2,183,0
-Bhadrak Rural,Odisha,315,3.9,103,1
-Puri Rural,Odisha,58,3.9,28,0
-Kendrapara,Odisha,191,5.4,36,1
-Jagatsinghpur Rural,Odisha,138,9.8,165,0
-Baleswar Rural,Odisha,191,3.8,147,0
+Deoria,Uttar Pradesh,309,2.7,128,0
+Basti,Uttar Pradesh,46,2.3,75,0
+Gonda,Uttar Pradesh,149,6.3,26,1
+Bahraich,Uttar Pradesh,317,3.7,186,0
+Azamgarh,Uttar Pradesh,309,5.6,134,1
+Ballia,Uttar Pradesh,331,4.4,21,1
+Kushinagar,Uttar Pradesh,111,7.9,107,0
+Mau,Uttar Pradesh,172,3.3,106,0
+Chapra,Bihar,82,2.8,44,0
+Siwan,Bihar,213,9.2,174,1
+Gopalganj,Bihar,165,8.9,137,1
+Vaishali,Bihar,304,3.1,116,0
+Samastipur,Bihar,70,6.7,180,0
+Madhubani,Bihar,346,9.5,112,1
+Darbhanga,Bihar,325,3.6,37,1
+Purnia,Bihar,53,7.6,94,0
+Katihar,Bihar,70,9.3,45,1
+Saharsa,Bihar,224,4.4,182,0
+Barpeta,Assam,216,3.4,110,0
+Nalbari,Assam,137,7.7,199,0
+Dhubri,Assam,66,7.2,63,0
+Goalpara,Assam,303,8.2,61,1
+Morigaon,Assam,266,5.2,183,0
+Nagaon,Assam,315,3.9,103,1
+Golaghat,Assam,58,3.9,28,0
+Sivasagar,Assam,191,5.4,36,1
+Jorhat,Assam,138,9.8,165,0
+Lakhimpur,Assam,191,3.8,147,0
+Malda,West Bengal,232,9.5,184,1
+Murshidabad,West Bengal,264,3.2,55,1
+Nadia Rural,West Bengal,156,8.3,157,0
+Hooghly Rural,West Bengal,164,8.3,129,1
+Howrah Rural,West Bengal,328,5.4,76,1
+Bankura,West Bengal,100,6.3,43,1
+Purulia,West Bengal,54,9.3,59,1
+Birbhum,West Bengal,111,8.7,128,0
+Cooch Behar,West Bengal,335,2.5,117,1
+Jalpaiguri,West Bengal,335,10.5,155,1
+Alappuzha Rural,Kerala,158,10.3,22,1
+Kuttanad,Kerala,88,7.8,157,0
+Chengannur,Kerala,166,8.5,107,1
+Pathanamthitta Rural,Kerala,87,4.5,60,0
+Cherthala,Kerala,262,2.0,87,0
+Thrissur Rural,Kerala,286,8.5,149,1
+Kottayam Rural,Kerala,84,9.4,96,1
+Ernakulam Rural,Kerala,289,7.2,59,1
+Palakkad Rural,Kerala,221,8.5,158,1
+Wayanad,Kerala,301,9.8,173,1
+Bhadrak Rural,Odisha,195,6.2,48,1
+Kendrapara,Odisha,215,9.5,98,1
+Jagatsinghpur Rural,Odisha,152,2.5,165,0
+Puri Rural,Odisha,70,2.7,144,0
+Balasore,Odisha,65,10.3,156,0
+Cuttack Rural,Odisha,94,3.1,141,0
+Ganjam Rural,Odisha,311,3.4,155,0
+Mayurbhanj,Odisha,340,5.6,74,1
+Keonjhar,Odisha,306,8.4,196,1
+Bhubaneswar Rural,Odisha,132,8.1,122,0
+Karad,Maharashtra,221,5.7,152,0
+Sangli Rural,Maharashtra,261,3.0,77,1
+Kolhapur Rural,Maharashtra,62,4.9,170,0
+Ratnagiri Rural,Maharashtra,313,4.0,76,1
+Wardha,Maharashtra,33,2.6,181,0
+Chiplun,Maharashtra,60,3.9,28,0
+Wai,Maharashtra,199,2.6,80,0
+Satara Rural,Maharashtra,172,7.7,74,1
+Solapur Rural,Maharashtra,306,3.1,166,0
+Nashik Rural,Maharashtra,325,6.0,141,1
+Valsad Rural,Gujarat,238,3.6,44,1
+Navsari Rural,Gujarat,250,5.0,125,0
+Bharuch Rural,Gujarat,269,9.3,33,1
+Junagadh Rural,Gujarat,80,2.5,106,0
+Surendranagar,Gujarat,85,4.1,68,0
+Bhavnagar Rural,Gujarat,304,5.8,128,1
+Anand Rural,Gujarat,123,4.4,83,0
+Vadodara Rural,Gujarat,68,5.8,160,0
+Kutch Rural,Gujarat,80,2.4,158,0
+Rajkot Rural,Gujarat,37,10.2,80,1
+Kota Rural,Rajasthan,115,5.5,143,0
+Bharatpur Rural,Rajasthan,139,9.3,35,1
+Alwar Rural,Rajasthan,114,5.2,119,0
+Sawai Madhopur,Rajasthan,165,9.9,136,1
+Baran,Rajasthan,176,5.6,162,0
+Dholpur,Rajasthan,279,3.3,95,1
+Karauli,Rajasthan,141,10.2,168,0
+Jhalawar,Rajasthan,307,2.5,100,1
+Tonk,Rajasthan,59,2.4,142,0
+Bundi,Rajasthan,287,9.8,155,1
+Hoshangabad Rural,Madhya Pradesh,110,2.5,150,0
+Mandla,Madhya Pradesh,71,9.2,37,1
+Balaghat,Madhya Pradesh,334,2.6,80,1
+Betul,Madhya Pradesh,236,3.0,165,0
+Chhindwara Rural,Madhya Pradesh,156,6.9,30,1
+Seoni,Madhya Pradesh,347,2.7,188,0
+Sehore,Madhya Pradesh,328,6.8,100,1
+Raisen,Madhya Pradesh,163,3.7,100,0
+Harda,Madhya Pradesh,152,4.3,53,0
+Narsinghpur,Madhya Pradesh,183,5.9,38,1
+Cuddalore Rural,Tamil Nadu,34,5.9,164,0
+Nagapattinam Rural,Tamil Nadu,81,2.6,74,0
+Thanjavur Rural,Tamil Nadu,289,4.3,109,1
+Tiruvarur,Tamil Nadu,65,9.5,114,0
+Villupuram Rural,Tamil Nadu,175,3.3,159,0
+Pudukkottai,Tamil Nadu,184,7.2,187,0
+Ramanathapuram,Tamil Nadu,300,2.1,161,0
+Sivaganga,Tamil Nadu,183,9.9,46,1
+Dindigul Rural,Tamil Nadu,98,4.2,47,0
+Erode Rural,Tamil Nadu,313,3.3,92,1
+Raichur Rural,Karnataka,339,3.8,107,1
+Belagavi Rural,Karnataka,134,7.8,87,1
+Bagalkot,Karnataka,288,6.2,33,1
+Yadgir,Karnataka,77,7.4,90,0
+Kalaburagi Rural,Karnataka,52,2.0,53,0
+Koppal,Karnataka,164,3.4,133,0
+Vijayapura Rural,Karnataka,312,8.0,163,1
+Gadag,Karnataka,34,3.0,196,0
+Haveri,Karnataka,106,6.6,114,0
+Dharwad Rural,Karnataka,328,6.7,130,1
+East Godavari Rural,Andhra Pradesh,95,2.4,113,0
+West Godavari Rural,Andhra Pradesh,50,9.6,73,1
+Krishna Rural,Andhra Pradesh,157,7.7,110,1
+Vizianagaram,Andhra Pradesh,316,9.5,124,1
+Nellore Rural,Andhra Pradesh,347,8.4,80,1
+Guntur Rural,Andhra Pradesh,113,10.3,65,1
+Prakasam Rural,Andhra Pradesh,241,2.2,105,0
+Srikakulam,Andhra Pradesh,240,8.8,83,1
+Chittoor Rural,Andhra Pradesh,166,3.4,199,0
+Kadapa Rural,Andhra Pradesh,85,5.3,29,1
+Gurdaspur Rural,Punjab,270,3.9,137,0
+Ferozepur Rural,Punjab,209,4.6,78,1
+Ropar,Punjab,144,2.2,69,0
+Hoshiarpur Rural,Punjab,234,4.8,37,1
+Patiala Rural,Punjab,172,5.0,150,0
+Amritsar Rural,Punjab,234,7.8,157,1
+Sangrur,Punjab,199,10.0,49,1
+Bathinda Rural,Punjab,163,3.5,87,0
+Moga,Punjab,49,2.9,131,0
+Faridkot,Punjab,206,8.2,100,1
+Kullu Rural,Himachal Pradesh,253,7.2,150,1
+Mandi Rural,Himachal Pradesh,89,5.3,167,0
+Kangra Rural,Himachal Pradesh,127,4.2,131,0
+Chamba Rural,Himachal Pradesh,30,6.4,157,0
+Solan Rural,Himachal Pradesh,130,5.1,37,1
+Bilaspur HP,Himachal Pradesh,199,7.3,189,0
+Una,Himachal Pradesh,93,8.1,96,0
+Hamirpur HP,Himachal Pradesh,289,4.6,124,1
+Sirmaur,Himachal Pradesh,197,5.4,95,1
+Kinnaur,Himachal Pradesh,313,3.1,127,0
+Sahibganj,Jharkhand,224,7.8,64,1
+Godda,Jharkhand,345,6.8,123,1
+Dumka,Jharkhand,310,9.1,97,1
+Pakur,Jharkhand,176,3.8,168,0
+East Singhbhum Rural,Jharkhand,340,7.6,139,1
+West Singhbhum,Jharkhand,256,5.8,74,1
+Hazaribagh Rural,Jharkhand,291,6.0,63,1
+Giridih,Jharkhand,73,4.4,189,0
+Deoghar,Jharkhand,347,4.8,80,1
+Ranchi Rural,Jharkhand,188,3.9,70,0
+Bastar,Chhattisgarh,105,2.2,82,0
+Raigarh Rural,Chhattisgarh,273,7.2,38,1
+Bilaspur CG Rural,Chhattisgarh,263,5.5,181,0
+Rajnandgaon,Chhattisgarh,324,3.7,198,0
+Durg Rural,Chhattisgarh,226,6.2,82,1
+Kanker,Chhattisgarh,105,7.6,21,1
+Dhamtari,Chhattisgarh,84,8.6,76,1
+Mahasamund,Chhattisgarh,120,8.8,198,0
+Korba Rural,Chhattisgarh,295,5.9,162,0
+Jashpur,Chhattisgarh,157,9.8,51,1
+Haridwar Rural,Uttarakhand,263,3.1,138,0
+Udham Singh Nagar,Uttarakhand,301,10.4,172,1
+Nainital Rural,Uttarakhand,192,10.1,133,1
+Pauri,Uttarakhand,343,8.9,149,1
+Tehri,Uttarakhand,248,9.1,160,1
+Almora,Uttarakhand,258,9.6,141,1
+Bageshwar,Uttarakhand,260,4.2,83,1
+Champawat,Uttarakhand,171,8.5,153,0
+Rudraprayag,Uttarakhand,278,7.3,90,1
+Chamoli,Uttarakhand,255,2.7,93,0
+Khammam Rural,Telangana,150,4.3,101,0
+Warangal Rural,Telangana,306,2.7,58,1
+Nizamabad Rural,Telangana,148,5.3,59,1
+Karimnagar Rural,Telangana,139,2.5,124,0
+Adilabad Rural,Telangana,199,6.6,126,0
+Mahbubnagar Rural,Telangana,61,3.8,127,0
+Nalgonda Rural,Telangana,229,9.7,169,1
+Medak,Telangana,40,9.3,167,0
+Suryapet,Telangana,224,6.1,110,1
+Jagtial,Telangana,182,8.4,127,1
+Sepahijala,Tripura,305,8.4,159,1
+Gomati,Tripura,338,9.6,144,1
+Dhalai,Tripura,142,4.3,144,0
+Unakoti,Tripura,44,5.3,191,0
+Khowai,Tripura,237,8.2,139,1
+West Tripura Rural,Tripura,95,10.3,156,0
+South Tripura Rural,Tripura,43,9.7,171,0
+North Tripura Rural,Tripura,318,7.6,41,1
+Kurukshetra Rural,Haryana,249,3.2,138,0
+Karnal Rural,Haryana,123,2.4,117,0
+Panipat Rural,Haryana,197,3.8,103,0
+Sonipat Rural,Haryana,202,8.5,117,1
+Jind,Haryana,172,8.4,127,1
+Kaithal,Haryana,159,9.1,140,1
+Yamunanagar Rural,Haryana,39,8.4,33,1
+Ambala Rural,Haryana,209,3.9,37,1
+Fatehabad,Haryana,50,8.4,83,0
+Sirsa,Haryana,132,9.1,179,0
+Bicholim,Goa,108,4.0,141,0
+Sanguem,Goa,88,6.8,75,0
+Canacona,Goa,268,7.9,114,1
+Quepem,Goa,115,7.2,49,1
+Ponda Rural,Goa,113,10.2,47,1
+Anantnag Rural,Jammu and Kashmir,326,2.2,99,1
+Pulwama Rural,Jammu and Kashmir,324,7.8,116,1
+Baramulla Rural,Jammu and Kashmir,233,10.0,70,1
+Kupwara,Jammu and Kashmir,68,7.0,180,0
+Budgam Rural,Jammu and Kashmir,154,2.9,97,0
+Kathua Rural,Jammu and Kashmir,337,8.8,164,1
+Udhampur Rural,Jammu and Kashmir,51,5.0,129,0
+Rajouri,Jammu and Kashmir,219,2.6,185,0
+Poonch,Jammu and Kashmir,204,2.1,127,0
+Doda,Jammu and Kashmir,280,2.9,112,0
+Bishnupur,Manipur,265,8.0,131,1
+Thoubal,Manipur,120,8.2,186,0
+Imphal Rural,Manipur,168,7.2,157,0
+Churachandpur,Manipur,277,6.0,171,0
+Senapati,Manipur,167,4.7,82,0
+Ri-Bhoi,Meghalaya,74,4.4,135,0
+Jaintia Hills,Meghalaya,154,8.4,165,0
+West Garo Hills,Meghalaya,342,7.7,106,1
+East Khasi Hills Rural,Meghalaya,44,6.2,103,0
+South Garo Hills,Meghalaya,123,6.1,110,0
+Aizawl Rural,Mizoram,162,4.9,172,0
+Lunglei Rural,Mizoram,171,6.7,152,0
+Champhai,Mizoram,127,2.7,124,0
+Kolasib,Mizoram,280,6.7,81,1
+Serchhip,Mizoram,273,7.5,145,1
+Dimapur Rural,Nagaland,259,8.7,43,1
+Kohima Rural,Nagaland,180,3.9,197,0
+Mokokchung,Nagaland,154,4.6,168,0
+Wokha,Nagaland,218,6.0,155,0
+Zunheboto,Nagaland,206,5.6,160,0
+Gangtok Rural,Sikkim,199,5.0,136,0
+Namchi,Sikkim,168,4.6,79,0
+Mangan,Sikkim,91,8.1,100,0
+Gyalshing,Sikkim,91,8.3,196,0
+Itanagar Rural,Arunachal Pradesh,124,3.6,143,0
+Pasighat,Arunachal Pradesh,171,8.2,154,0
+Ziro,Arunachal Pradesh,335,4.4,45,1
+Along,Arunachal Pradesh,129,4.5,112,0
+Tezu,Arunachal Pradesh,121,4.6,156,0

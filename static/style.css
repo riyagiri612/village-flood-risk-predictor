@@ -25,7 +25,6 @@ body {
 
 a { color: var(--river); text-decoration: none; }
 
-/* ---------- Topbar (result & board pages) ---------- */
 .topbar {
     background: linear-gradient(120deg, var(--ink), var(--river-dark));
     padding: 18px 24px;
@@ -34,13 +33,7 @@ a { color: var(--river); text-decoration: none; }
     align-items: center;
 }
 
-.topbar h1 {
-    font-family: 'Zilla Slab', serif;
-    font-weight: 700;
-    color: #fff;
-    font-size: 22px;
-    margin: 0;
-}
+.topbar h1 { font-family: 'Zilla Slab', serif; font-weight: 700; color: #fff; font-size: 22px; margin: 0; }
 
 .lang-toggle a {
     color: #cfe0ee;
@@ -53,24 +46,14 @@ a { color: var(--river); text-decoration: none; }
 
 .lang-toggle a:hover { background: rgba(255,255,255,0.15); }
 
-/* ---------- Hero (homepage) ---------- */
 .hero {
     background: linear-gradient(135deg, var(--ink) 0%, var(--river-dark) 45%, var(--river-light) 100%);
     padding: 28px 24px 48px 24px;
     color: #fff;
 }
 
-.hero-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.hero h1 {
-    font-family: 'Zilla Slab', serif;
-    font-size: 26px;
-    margin: 0;
-}
+.hero-top { display: flex; justify-content: space-between; align-items: center; }
+.hero h1 { font-family: 'Zilla Slab', serif; font-size: 26px; margin: 0; }
 
 .hero p.subtitle {
     max-width: 480px;
@@ -100,75 +83,9 @@ a { color: var(--river); text-decoration: none; }
     flex: 1;
 }
 
-.stat-num {
-    font-family: 'Zilla Slab', serif;
-    font-size: 30px;
-    font-weight: 700;
-}
+.stat-num { font-family: 'Zilla Slab', serif; font-size: 30px; font-weight: 700; }
+.stat-label { font-size: 13px; color: #dceaf4; margin-top: 4px; }
 
-.stat-label {
-    font-size: 13px;
-    color: #dceaf4;
-    margin-top: 4px;
-}
-
-/* ---------- Village dashboard grid ---------- */
-.dashboard {
-    max-width: 720px;
-    margin: -28px auto 0 auto;
-    padding: 0 24px;
-}
-
-.dashboard h2 {
-    font-family: 'Zilla Slab', serif;
-    color: var(--ink);
-    font-size: 19px;
-    margin: 30px 0 14px 4px;
-}
-
-.v-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 12px;
-}
-
-.v-card {
-    display: block;
-    background: #fff;
-    border-radius: 8px;
-    padding: 14px 12px;
-    text-align: center;
-    border-top: 5px solid var(--line);
-    box-shadow: 0 2px 8px rgba(11,37,69,0.08);
-    transition: transform 0.15s ease;
-}
-
-.v-card:hover { transform: translateY(-3px); }
-
-.v-card-high { border-top-color: var(--high); background: #FDF1F0; }
-.v-card-medium { border-top-color: var(--medium); background: #FDF6EC; }
-.v-card-low { border-top-color: var(--low); background: #EFF8F3; }
-
-.v-card-emoji { font-size: 22px; }
-
-.v-card-name {
-    font-weight: 600;
-    color: var(--ink);
-    font-size: 14px;
-    margin-top: 6px;
-}
-
-.v-card-risk {
-    font-size: 12px;
-    font-weight: 700;
-    margin-top: 2px;
-}
-
-.v-card-high .v-card-risk { color: var(--high); }
-.v-card-medium .v-card-risk { color: var(--medium); }
-.v-card-low .v-card-risk { color: var(--low); }
-
-/* ---------- Board form container ---------- */
 .container {
     background: #fff;
     max-width: 520px;
@@ -187,13 +104,7 @@ h2 {
     padding-left: 10px;
 }
 
-label {
-    display: block;
-    margin-top: 16px;
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--ink);
-}
+label { display: block; margin-top: 16px; font-weight: 600; font-size: 14px; color: var(--ink); }
 
 select, input[type="text"], input[type="number"] {
     width: 100%;
@@ -225,7 +136,6 @@ button:hover { filter: brightness(1.08); }
 ul { padding-left: 20px; }
 li { margin-bottom: 8px; }
 
-/* ---------- Risk badge ---------- */
 .badge {
     display: inline-flex;
     align-items: center;
@@ -251,7 +161,6 @@ li { margin-bottom: 8px; }
 
 .meta-line { color: #5A6B77; font-size: 14px; margin: 4px 0; }
 
-/* ---------- Result page card (simple accent border, no animation) ---------- */
 .result-container {
     background: #fff;
     max-width: 520px;
@@ -266,23 +175,61 @@ li { margin-bottom: 8px; }
 .result-medium { border-top-color: var(--medium); }
 .result-low { border-top-color: var(--low); }
 
-/* ---------- Donation board ---------- */
-.post-item {
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    padding: 12px 14px;
-    margin-bottom: 10px;
-    background: #fff;
-}
-
-.post-tag {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-bottom: 6px;
-}
-
+.post-item { border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; background: #fff; }
+.post-tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 6px; }
 .tag-need { background: #FCEAE8; color: var(--high); }
 .tag-donate { background: #E6F1E9; color: var(--low); }
+
+.sms-box {
+    width: 100%;
+    padding: 14px;
+    margin-top: 8px;
+    background: #0B2545;
+    color: #cfe0ee;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    resize: none;
+    cursor: pointer;
+}
+
+#village-search {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 15px;
+}
+
+#search-results { margin-top: 4px; border-radius: 4px; overflow: hidden; }
+
+.search-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    background: #fff;
+    color: var(--text);
+    font-size: 14px;
+}
+
+.search-item:hover { background: var(--paper); }
+.search-item span { color: #5A6B77; font-size: 12px; }
+
+#locate-btn {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    background: var(--ink);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#locate-btn:hover { background: var(--river-dark); }

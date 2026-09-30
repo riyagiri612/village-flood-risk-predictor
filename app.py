@@ -1,36 +1,30 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, jsonify
 import pickle
 import pandas as pd
 from donations import init_donations_file, add_post, get_all_posts
 from safety import init_safety_file, mark_safe, get_safety_records, get_safety_counts
-from weather import get_live_weather
+from weather import get_live_weather, find_nearest_state
 
 app = Flask(__name__)
 app.secret_key = 'flood_app_secret_key'
 init_donations_file()
 init_safety_file()
 
-with open("flood_model.pkl", "rb") as f:
-    model = pickle.load(f)
+from model_lite import model
 
 village_df = pd.read_csv("village_data.csv")
 
 SHELTERS = {
     "Rampur": {"name": "Rampur Govt. Primary School", "address": "Near Rampur Chowk", "contact": "1077"},
     "Sitapur": {"name": "Sitapur Community Hall", "address": "Main Road, Sitapur", "contact": "1077"},
-    "Ganeshpur": {"name": "Ganeshpur Higher Secondary School", "address": "Ganeshpur Bazaar Road", "contact": "1077"},
-    "Devgarh": {"name": "Devgarh Panchayat Bhawan", "address": "Village Center, Devgarh", "contact": "1077"},
-    "Kishanpur": {"name": "Kishanpur Govt. School", "address": "Kishanpur Main Road", "contact": "1077"},
-    "Lalganj": {"name": "Lalganj Relief Camp Ground", "address": "Near Lalganj Temple", "contact": "1077"},
-    "Bhavpur": {"name": "Bhavpur Community Center", "address": "Bhavpur Market Road", "contact": "1077"},
-    "Nandgaon": {"name": "Nandgaon Govt. School", "address": "Nandgaon Chowk", "contact": "1077"},
-    "Shivpur": {"name": "Shivpur Panchayat Hall", "address": "Shivpur Main Street", "contact": "1077"},
-    "Rajnagar": {"name": "Rajnagar Higher Secondary School", "address": "Rajnagar Bypass Road", "contact": "1077"},
-    "Chandpur": {"name": "Chandpur Community Hall", "address": "Chandpur Village Center", "contact": "1077"},
-    "Harigaon": {"name": "Harigaon Govt. School", "address": "Harigaon Main Road", "contact": "1077"},
-    "Madhopur": {"name": "Madhopur Panchayat Bhawan", "address": "Madhopur Chowk", "contact": "1077"},
-    "Ramnagar": {"name": "Ramnagar Relief Camp Ground", "address": "Near Ramnagar Bus Stand", "contact": "1077"},
-    "Ashokpur": {"name": "Ashokpur Govt. School", "address": "Ashokpur Market Road", "contact": "1077"},
+    "Chapra": {"name": "Chapra Govt. School", "address": "Chapra Main Road", "contact": "1077"},
+    "Barpeta": {"name": "Barpeta Relief Camp Ground", "address": "Near Barpeta Chowk", "contact": "1077"},
+    "Malda": {"name": "Malda Community Hall", "address": "Malda Bazaar Road", "contact": "1077"},
+    "Alappuzha Rural": {"name": "Alappuzha Panchayat Bhawan", "address": "Alappuzha Rural Center", "contact": "1077"},
+    "Bhadrak Rural": {"name": "Bhadrak Govt. School", "address": "Bhadrak Main Road", "contact": "1077"},
+    "Karad": {"name": "Karad Community Hall", "address": "Karad Bypass Road", "contact": "1077"},
+    "Valsad Rural": {"name": "Valsad Govt. School", "address": "Valsad Village Center", "contact": "1077"},
+    "Kota Rural": {"name": "Kota Relief Camp Ground", "address": "Near Kota Bus Stand", "contact": "1077"},
 }
 
 DEFAULT_SHELTER = {"name": "Nearest Government School / Panchayat Bhawan", "address": "Contact local administration for exact location", "contact": "1077"}
@@ -139,6 +133,25 @@ def home():
     return render_template('index.html', villages=villages, high_count=high_count,
                             total_villages=len(villages), posts_count=posts_count,
                             t=TEXT[lang], lang=lang)
+
+@app.route('/search-villages')
+def search_villages():
+    query = request.args.get('q', '').strip().lower()
+    if len(query) < 2:
+        return jsonify([])
+    matches = village_df[village_df['village'].str.lower().str.contains(query)]
+    results = matches[['village', 'state']].head(8).to_dict('records')
+    return jsonify(results)
+
+@app.route('/nearest-state')
+def nearest_state():
+    lat = request.args.get('lat', type=float)
+    lon = request.args.get('lon', type=float)
+    if lat is None or lon is None:
+        return jsonify({"error": "no coordinates"}), 400
+    state = find_nearest_state(lat, lon)
+    matching_villages = village_df[village_df['state'] == state][['village', 'state']].to_dict('records')
+    return jsonify({"state": state, "villages": matching_villages})
 
 @app.route('/predict', methods=['POST'])
 def predict():

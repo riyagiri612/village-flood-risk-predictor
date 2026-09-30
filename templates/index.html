@@ -8,9 +8,9 @@
     <div class="hero">
         <div class="hero-top">
             <h1>🌊 {{ t.home_title }}</h1>
-            <div class="lang-toggle">
-                <a href="/setlang/en">English</a><a href="/setlang/hi">हिंदी</a>
-            </div>
+          <div class="lang-toggle">
+    <a href="/setlang/en">English</a><a href="/setlang/hi">हिंदी</a>
+</div>
         </div>
         <p class="subtitle">{{ t.hero_subtitle }}</p>
         <div class="hero-stats">
@@ -30,17 +30,68 @@
     </div>
 
     <div class="container">
-        <form action="/predict" method="POST">
-            <label>{{ t.select_village }}</label>
-            <input type="text" name="village" list="village-list" placeholder="Start typing a village name..." required>
-            <datalist id="village-list">
-                {% for v in villages %}
-                <option value="{{ v }}">
-                {% endfor %}
-            </datalist>
-            <button type="submit">{{ t.check_risk }}</button>
-        </form>
+        <label>{{ t.select_village }}</label>
+        <input type="text" id="village-search" placeholder="Start typing a village or district name..." autocomplete="off">
+        <button type="button" id="locate-btn">📍 Use My Location</button>
+        <p id="locate-status" class="meta-line"></p>
+        <div id="search-results"></div>
+
         <a class="back-link" href="/board">🤝 {{ t.board_link }}</a>
+        <a class="back-link" href="/safety">🛟 {{ t.safety_link }}</a>
+        <a class="back-link" href="/alerts">🚨 {{ t.alerts_link }}</a>
     </div>
+
+    <script>
+        const input = document.getElementById('village-search');
+        const resultsBox = document.getElementById('search-results');
+        let debounceTimer;
+
+        function renderResults(items) {
+            resultsBox.innerHTML = '';
+            items.forEach(item => {
+                const div = document.createElement('a');
+                div.href = `/risk/${encodeURIComponent(item.village)}`;
+                div.className = 'search-item';
+                div.innerHTML = `<strong>${item.village}</strong><span>${item.state}</span>`;
+                resultsBox.appendChild(div);
+            });
+        }
+
+        input.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            const query = input.value.trim();
+            if (query.length < 2) {
+                resultsBox.innerHTML = '';
+                return;
+            }
+            debounceTimer = setTimeout(() => {
+                fetch(`/search-villages?q=${encodeURIComponent(query)}`)
+                    .then(res => res.json())
+                    .then(data => renderResults(data));
+            }, 250);
+        });
+
+        document.getElementById('locate-btn').addEventListener('click', () => {
+            const status = document.getElementById('locate-status');
+            if (!navigator.geolocation) {
+                status.textContent = "Geolocation is not supported on this device.";
+                return;
+            }
+            status.textContent = "Detecting your location...";
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    fetch(`/nearest-state?lat=${lat}&lon=${lon}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            status.textContent = `Showing villages near you (${data.state})`;
+                            renderResults(data.villages);
+                        });
+                },
+                () => { status.textContent = "Couldn't get your location. Please allow location access, or search manually above."; }
+            );
+        });
+    </script>
 </body>
 </html>

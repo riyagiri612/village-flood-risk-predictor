@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ t.alerts_title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="topbar">
+        <h1>🚨 {{ t.alerts_title }}</h1>
+        <div class="lang-toggle"><a href="/setlang/en">English</a><a href="/setlang/hi">हिंदी</a></div>
+    </div>
+
+    <div class="container">
+        <p class="meta-line">{{ t.alerts_subtitle }}</p>
+
+        {% if alerts %}
+            {% for a in alerts %}
+            <h2>⚠️ {{ a.village }} ({{ a.confidence }}%)</h2>
+            <textarea class="sms-box" rows="4" readonly onclick="this.select()">{{ a.sms_text }}</textarea>
+            {% endfor %}
+        {% else %}
+        <p class="meta-line">{{ t.no_alerts }}</p>
+        {% endif %}
+
+        <a class="back-link" href="/">← {{ t.back_home }}</a>
+    </div>
+</body>
+</html>

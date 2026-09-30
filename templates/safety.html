@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ t.safety_title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="topbar">
+        <h1>🛟 {{ t.safety_title }}</h1>
+        <div class="lang-toggle"><a href="/setlang/en">English</a><a href="/setlang/hi">हिंदी</a></div>
+    </div>
+
+    <div class="container">
+        <h2>{{ t.mark_safe_title }}</h2>
+        <form action="/mark-safe" method="POST">
+            <label>{{ t.village_form }}</label>
+            <input type="text" name="village" required>
+
+            <label>{{ t.your_name }}</label>
+            <input type="text" name="name" required>
+
+            <label>{{ t.contact_form }}</label>
+            <input type="text" name="contact" required>
+
+            <button type="submit">✅ {{ t.mark_safe_btn }}</button>
+        </form>
+
+        <h2>{{ t.safety_records_title }}</h2>
+        {% if counts %}
+            {% for village, count in counts.items() %}
+            <div class="post-item">
+                <span class="post-tag tag-donate">✅ {{ village }}</span>
+                <p>{{ count }} {{ t.safety_records_title }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+        <p class="meta-line">{{ t.no_safety_yet }}</p>
+        {% endif %}
+
+        <a class="back-link" href="/">← {{ t.back_home }}</a>
+    </div>
+</body>
+</html>

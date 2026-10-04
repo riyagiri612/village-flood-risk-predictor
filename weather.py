@@ -52,19 +52,52 @@ def find_nearest_state(user_lat, user_lon):
             closest_state = state
     return closest_state
 
-def get_live_weather(state):
+_coord_cache = {}
+
+
+def get_village_coordinates(village, state):
+    """Finds lat/lon for a village using OpenWeather's geocoding. Returns None if not found."""
+    key = (village, state)
+    if key in _coord_cache:
+        return _coord_cache[key]
+    result = None
+    name = village.replace(" Rural", "")
+    try:
+        response = requests.get(
+            "https://api.openweathermap.org/geo/1.0/direct",
+            params={"q": f"{name},IN", "limit": 5, "appid": API_KEY},
+            timeout=5,
+        )
+        for place in response.json():
+            if place.get("state", "").lower() == state.lower():
+                result = (place["lat"], place["lon"])
+                break
+    except Exception:
+        pass
+    _coord_cache[key] = result
+    return result
+
+
+def get_live_weather(state, village=None):
     info = STATE_INFO.get(state)
     if not info:
         return None
-    city = info["city"]
+
+    coords = get_village_coordinates(village, state) if village else None
+    if coords:
+        params = {"lat": coords[0], "lon": coords[1], "appid": API_KEY, "units": "metric"}
+        label = village
+    else:
+        params = {"q": f"{info['city']},IN", "appid": API_KEY, "units": "metric"}
+        label = info["city"]
+
     try:
-        url = f"https://api.openweathermap.org/data/2.5/weather?q={city},IN&appid={API_KEY}&units=metric"
-        response = requests.get(url, timeout=5)
+        response = requests.get("https://api.openweathermap.org/data/2.5/weather", params=params, timeout=5)
         data = response.json()
         if response.status_code != 200:
             return None
         return {
-            "city": city, "temp": round(data["main"]["temp"], 1),
+            "city": label, "approximate": not coords, "temp": round(data["main"]["temp"], 1),
             "humidity": data["main"]["humidity"],
             "condition": data["weather"][0]["description"].title(),
             "rain_last_hour": data.get("rain", {}).get("1h", 0)

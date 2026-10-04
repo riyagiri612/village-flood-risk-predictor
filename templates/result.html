@@ -25,6 +25,7 @@
 
         {% if live_weather %}
         <h2>🌤️ {{ t.live_weather_title }} — {{ live_weather.city }}</h2>
+        {% if live_weather.approximate %}<p class="meta-line">⚠️ Exact weather for {{ village }} isn't available. This shows {{ live_weather.city }}, the nearest major city we track.</p>{% endif %}
         <p class="meta-line">{{ live_weather.condition }} · {{ live_weather.temp }}°C · Humidity {{ live_weather.humidity }}% · Rain (last hr): {{ live_weather.rain_last_hour }}mm</p>
         {% endif %}
 

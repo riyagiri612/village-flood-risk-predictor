@@ -4,11 +4,13 @@ import pandas as pd
 from donations import init_donations_file, add_post, get_all_posts
 from safety import init_safety_file, mark_safe, get_safety_records, get_safety_counts
 from weather import get_live_weather, find_nearest_state
+from users import register_user, verify_user, init_users_file
 
 app = Flask(__name__)
 app.secret_key = 'flood_app_secret_key'
 init_donations_file()
 init_safety_file()
+init_users_file()
 
 from model_lite import model
 
@@ -219,6 +221,47 @@ def alerts():
         sms_text = generate_sms(v['village'], shelter, lang)
         alert_list.append({"village": v['village'], "confidence": v['confidence'], "sms_text": sms_text})
     return render_template('alerts.html', alerts=alert_list, t=TEXT[lang], lang=lang)
+
+@app.context_processor
+def inject_user():
+    return {"current_user": session.get("user")}
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    lang = session.get('lang', 'en')
+    error = None
+    if request.method == 'POST':
+        name = request.form['name'].strip()
+        email = request.form['email'].strip()
+        password = request.form['password']
+        if not name or not email or len(password) < 6:
+            error = "Please fill in all fields. Password must be at least 6 characters."
+        elif register_user(name, email, password):
+            session['user'] = name
+            return redirect('/')
+        else:
+            error = "An account with this email already exists."
+    return render_template('register.html', error=error, t=TEXT[lang], lang=lang)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    lang = session.get('lang', 'en')
+    error = None
+    if request.method == 'POST':
+        name = verify_user(request.form['email'], request.form['password'])
+        if name:
+            session['user'] = name
+            return redirect('/')
+        error = "Wrong email or password."
+    return render_template('login.html', error=error, t=TEXT[lang], lang=lang)
+
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(debug=True)

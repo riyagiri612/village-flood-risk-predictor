@@ -9,7 +9,8 @@
         <div class="hero-top">
             <h1>🌊 {{ t.home_title }}</h1>
           <div class="lang-toggle">
-    <a href="/setlang/en">English</a><a href="/setlang/hi">हिंदी</a>
+            <a href="/setlang/en">English</a><a href="/setlang/hi">हिंदी</a>
+            {% if current_user %}<a href="/logout">Logout ({{ current_user }})</a>{% else %}<a href="/login">Login</a>{% endif %}
 </div>
         </div>
         <p class="subtitle">{{ t.hero_subtitle }}</p>

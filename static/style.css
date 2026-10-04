@@ -233,3 +233,14 @@ li { margin-bottom: 8px; }
 }
 
 #locate-btn:hover { background: var(--river-dark); }
+
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+.form-error { color: var(--high); font-weight: 600; margin-bottom: 8px; }

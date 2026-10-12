@@ -1,7 +1,10 @@
 import requests
 import math
 
-API_KEY = "9c70d14b3f4bab4f066c75fbafb973be"
+import os
+from dotenv import load_dotenv
+load_dotenv()
+API_KEY = os.environ.get("OPENWEATHER_API_KEY")
 
 STATE_INFO = {
     "Uttar Pradesh": {"city": "Gorakhpur", "lat": 26.7606, "lon": 83.3732},

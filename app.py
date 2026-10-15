@@ -215,7 +215,7 @@ def risk_view(village):
     shelter = get_shelter(village)
     actions = ACTIONS[risk][lang]
     sms_text = generate_sms(village, shelter, lang) if risk == "High" else None
-    live_weather = get_live_weather(row['state'])
+    live_weather = get_live_weather(row['state'],village)
     return render_template('result.html', risk=risk, confidence=confidence,
                             village=village, shelter=shelter, actions=actions,
                             sms_text=sms_text, live_weather=live_weather,

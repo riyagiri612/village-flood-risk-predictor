@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-DONATIONS_FILE = "donations.csv"
+DONATIONS_FILE = "/tmp/donations.csv" if os.environ.get("VERCEL") else "donations.csv"
 
 def init_donations_file():
     if not os.path.exists(DONATIONS_FILE):

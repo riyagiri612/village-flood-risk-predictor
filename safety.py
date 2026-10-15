@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-SAFETY_FILE = "safety_status.csv"
+SAFETY_FILE = "/tmp/safety_status.csv" if os.environ.get("VERCEL") else "safety_status.csv"
 
 def init_safety_file():
     if not os.path.exists(SAFETY_FILE):

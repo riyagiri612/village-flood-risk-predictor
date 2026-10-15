@@ -45,6 +45,19 @@ Abhaas brings several preparedness and community-support features together in a 
 - OpenWeather API for live weather
 - CSV files for storage
 
+## Getting started
+
+Prerequisites: Python 3.11 or newer, and a free OpenWeather API key from openweathermap.org.
+
+1. Clone the repository and open the folder:
+   git clone https://github.com/riyagiri612/village-flood-risk-predictor.git
+   cd village-flood-risk-predictor
+2. Install the dependencies:
+   python -m pip install -r requirements.txt
+3. Create a file named .env in the project folder (next to app.py) with one line, using your own key:
+   OPENWEATHER_API_KEY=your_key_here
+4. Start the app:
+   python app.py
 
 
 ## Project structure
